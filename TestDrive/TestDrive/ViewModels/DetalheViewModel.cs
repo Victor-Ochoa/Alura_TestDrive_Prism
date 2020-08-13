@@ -52,10 +52,10 @@ namespace TestDrive.ViewModels
             }
         }
 
-        public string ValorTotal
+        public decimal ValorTotal
         {
             get {
-                return Veiculo.PrecoTotalFormatado;
+                return Veiculo.PrecoTotal;
             }
         }
 

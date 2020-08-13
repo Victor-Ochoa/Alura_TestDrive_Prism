@@ -16,7 +16,7 @@
                                 On="{Binding TemArCondicionado, Mode=TwoWay}"></SwitchCell>
                     <SwitchCell Text="{Binding TextoMP3Player, Mode=TwoWay}" 
                                 On="{Binding TemMP3Player, Mode=TwoWay}"></SwitchCell>
-                    <TextCell Text="{Binding ValorTotal, Mode=TwoWay}"></TextCell>
+                    <TextCell Text="{Binding ValorTotal, StringFormat='Valor Total: {0:C}', Mode=TwoWay}"></TextCell>
                 </TableSection>
             </TableRoot>
         </TableView>

@@ -22,6 +22,5 @@ namespace TestDrive.Models
                     + (TemArCondicionado ? AR_CONDICIONADO : 0)
                     + (TemMP3Player ? MP3_PLAYER : 0);
 
-        public string PrecoTotalFormatado => $"Valor Total: {PrecoTotal:C}";
     }
 }
