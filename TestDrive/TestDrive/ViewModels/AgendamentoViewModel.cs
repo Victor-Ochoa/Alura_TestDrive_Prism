@@ -34,7 +34,7 @@ namespace TestDrive.ViewModels
                     if(await _agendamentoService.Salvar(Agendamento))
                     {
                         await _dialogService.DisplayAlertAsync("Agendamento", $"{Agendamento.Veiculo.Nome} agendado com sucesso", "OK");
-                        await this.NavigationService.GoBackToRootAsync();
+                        await this._navigationService.GoBackToRootAsync();
                     }
                     else
                         await _dialogService.DisplayAlertAsync("Agendamento", "Falha ao agendar o test drive! Verifique os dados e tente novamente mais tarde!", "ok");

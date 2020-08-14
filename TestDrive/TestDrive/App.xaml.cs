@@ -39,10 +39,13 @@ namespace TestDrive
             containerRegistry.RegisterForNavigation<Detalhe, DetalheViewModel>();
             containerRegistry.RegisterForNavigation<Agendamento, AgendamentoViewModel>();
             containerRegistry.RegisterForNavigation<Login, LoginViewModel>();
+            containerRegistry.RegisterForNavigation<MasterDetail, MasterDetailViewModel>();
+            containerRegistry.RegisterForNavigation<Master, MasterViewModel>();
 
             containerRegistry.Register<IAgendamentoService, AgendamentoService>();
             containerRegistry.Register<IVeiculoService, VeiculoService>();
             containerRegistry.Register<ILoginService, LoginService>();
+            containerRegistry.RegisterForNavigation<Master, MasterViewModel>();
         }
     }
 }

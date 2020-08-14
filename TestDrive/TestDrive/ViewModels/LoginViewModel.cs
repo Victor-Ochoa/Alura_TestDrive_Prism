@@ -62,7 +62,7 @@ namespace TestDrive.ViewModels
                 var usuario = await _loginService.Login(_usuario, _senha);
                 if (usuario != null)
                 {
-                    await NavigationService.NavigateAsync("/NavigationPage/Listagem");
+                    await _navigationService.NavigateAsync("/MasterDetail/NavigationPage/Listagem");
                 }
                 else
                     await _dialogService.DisplayAlertAsync("Login", "Usuário ou senha incorreto, tente novamente.", "ok");
