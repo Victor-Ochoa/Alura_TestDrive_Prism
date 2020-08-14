@@ -14,6 +14,7 @@ namespace TestDrive.ViewModels
     {
         private readonly ILoginService _loginService;
         private readonly IPageDialogService _dialogService;
+        private readonly IMemoryService _memoryService;
         private bool _busy;
         public bool Busy
         {
@@ -46,12 +47,13 @@ namespace TestDrive.ViewModels
 
 
         public System.Windows.Input.ICommand EntrarCommand { get; set; }
-        public LoginViewModel(INavigationService navigationService, ILoginService loginService, IPageDialogService dialogService)
+        public LoginViewModel(INavigationService navigationService, ILoginService loginService, IPageDialogService dialogService, IMemoryService memoryService)
             : base(navigationService)
         {
             EntrarCommand = new Xamarin.Forms.Command(EntrarCommandAction, EntrarCommandValidate);
             this._loginService = loginService;
             this._dialogService = dialogService;
+            this._memoryService = memoryService;
         }
 
         private async void EntrarCommandAction()
@@ -62,6 +64,7 @@ namespace TestDrive.ViewModels
                 var usuario = await _loginService.Login(_usuario, _senha);
                 if (usuario != null)
                 {
+                    _memoryService.Usuario = usuario;
                     await _navigationService.NavigateAsync("/MasterDetail/NavigationPage/Listagem");
                 }
                 else

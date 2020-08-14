@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TestDrive.Interfaces;
 using TestDrive.Services;
+using TestDrive.Models;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TestDrive
@@ -37,7 +38,7 @@ namespace TestDrive
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<Listagem, ListagemViewModel>();
             containerRegistry.RegisterForNavigation<Detalhe, DetalheViewModel>();
-            containerRegistry.RegisterForNavigation<Agendamento, AgendamentoViewModel>();
+            containerRegistry.RegisterForNavigation<Views.Agendamento, AgendamentoViewModel>();
             containerRegistry.RegisterForNavigation<Login, LoginViewModel>();
             containerRegistry.RegisterForNavigation<MasterDetail, MasterDetailViewModel>();
             containerRegistry.RegisterForNavigation<Master, MasterViewModel>();
@@ -45,7 +46,8 @@ namespace TestDrive
             containerRegistry.Register<IAgendamentoService, AgendamentoService>();
             containerRegistry.Register<IVeiculoService, VeiculoService>();
             containerRegistry.Register<ILoginService, LoginService>();
-            containerRegistry.RegisterForNavigation<Master, MasterViewModel>();
+
+            containerRegistry.RegisterSingleton<IMemoryService, MemoryService>();
         }
     }
 }
