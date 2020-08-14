@@ -19,33 +19,38 @@ namespace TestDrive.ViewModels
     {
         private readonly IPageDialogService _dialogService;
         private readonly IAgendamentoService _agendamentoService;
+        private readonly IMemoryService _memoryService;
 
         public Agendamento Agendamento { get; set; } = new Agendamento();
-        public AgendamentoViewModel(INavigationService navigationService, IPageDialogService dialogService, IAgendamentoService agendamentoService)
+        public AgendamentoViewModel(INavigationService navigationService, IPageDialogService dialogService, IAgendamentoService agendamentoService, IMemoryService memoryService)
             : base(navigationService)
         {
             Title = "Agendamento";
             this._dialogService = dialogService;
             this._agendamentoService = agendamentoService;
-            AgendarCommand = new Command(async () =>
-            {
-                if(await dialogService.DisplayAlertAsync("Salvar Agendamento","Deseja mesmo enviar o agendamento?","sim", "não"))
-                {
-                    if(await _agendamentoService.Salvar(Agendamento))
-                    {
-                        await _dialogService.DisplayAlertAsync("Agendamento", $"{Agendamento.Veiculo.Nome} agendado com sucesso", "OK");
-                        await this._navigationService.GoBackToRootAsync();
-                    }
-                    else
-                        await _dialogService.DisplayAlertAsync("Agendamento", "Falha ao agendar o test drive! Verifique os dados e tente novamente mais tarde!", "ok");
-                }
+            this._memoryService = memoryService;
+            AgendarCommand = new Command(AgendarCommandAction, AgendarCommandValidate);
+        }
 
-            }, () =>
+        private bool AgendarCommandValidate()
+        {
+            return !string.IsNullOrEmpty(this.Nome)
+                             && !string.IsNullOrEmpty(this.Fone)
+                             && !string.IsNullOrEmpty(this.Email);
+        }
+
+        private async void AgendarCommandAction()
+        {
+            if (await _dialogService.DisplayAlertAsync("Salvar Agendamento", "Deseja mesmo enviar o agendamento?", "sim", "não"))
             {
-                return !string.IsNullOrEmpty(this.Nome)
-                 && !string.IsNullOrEmpty(this.Fone)
-                 && !string.IsNullOrEmpty(this.Email);
-            });
+                if (await _agendamentoService.Salvar(Agendamento))
+                {
+                    await _dialogService.DisplayAlertAsync("Agendamento", $"{Agendamento.Veiculo.Nome} agendado com sucesso", "OK");
+                    await this._navigationService.GoBackToRootAsync();
+                }
+                else
+                    await _dialogService.DisplayAlertAsync("Agendamento", "Falha ao agendar o test drive! Verifique os dados e tente novamente mais tarde!", "ok");
+            }
         }
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
@@ -118,6 +123,13 @@ namespace TestDrive.ViewModels
         }
 
         public ICommand AgendarCommand { get; set; }
+
+        public override void OnAppearing()
+        {
+            Nome = _memoryService.Usuario.Nome;
+            Email = _memoryService.Usuario.Email;
+            Fone = _memoryService.Usuario.Telefone;
+        }
 
     }
 }
