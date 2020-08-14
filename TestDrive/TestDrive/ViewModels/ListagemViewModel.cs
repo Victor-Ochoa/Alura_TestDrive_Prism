@@ -53,7 +53,7 @@ namespace TestDrive.ViewModels
             this._dialogService = dialogService;
         }
 
-        public override async void OnNavigatedTo(INavigationParameters parameters)
+        public async override void OnAppearing()
         {
             await GetVeiculos();
         }
