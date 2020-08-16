@@ -25,7 +25,7 @@ namespace TestDrive.ViewModels
             }
         }
 
-        private string _usuario;
+        private string _usuario = "joao@alura.com.br";
         public string Usuario
         {
             get { return _usuario; }
@@ -35,7 +35,7 @@ namespace TestDrive.ViewModels
             }
         }
 
-        private string _senha;
+        private string _senha = "alura123";
         public string Senha
         {
             get { return _senha; }
