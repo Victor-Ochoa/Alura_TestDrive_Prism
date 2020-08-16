@@ -42,6 +42,8 @@ namespace TestDrive
             containerRegistry.RegisterForNavigation<Login, LoginViewModel>();
             containerRegistry.RegisterForNavigation<MasterDetail, MasterDetailViewModel>();
             containerRegistry.RegisterForNavigation<Master, MasterViewModel>();
+            containerRegistry.RegisterForNavigation<TabEditar, TabEditarViewModel>();
+            containerRegistry.RegisterForNavigation<TabUsuario, TabUsuarioViewModel>();
 
             containerRegistry.Register<IAgendamentoService, AgendamentoService>();
             containerRegistry.Register<IVeiculoService, VeiculoService>();

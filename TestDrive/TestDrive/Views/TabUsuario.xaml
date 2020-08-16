@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             Title="Usuário"
+             x:Class="TestDrive.Views.TabUsuario">
+
+    <Frame OutlineColor="Silver" Margin="15" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <StackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="{Binding Nome}"></Label>
+            <BoxView HeightRequest="1" HorizontalOptions="Fill" Color="Gray"></BoxView>
+            <Label Text="{Binding Email}"></Label>
+            <BoxView HeightRequest="1" HorizontalOptions="Fill" Color="Gray"></BoxView>
+            <Button Text="Perfil" Command="{Binding SelectFirstTabCommand}"/>
+            <Button Text="Meus Agendamentos" Command="{Binding NavigateCommand}" CommandParameter="Listagem" />
+            <Button Text="Novo Agendamento" Command="{Binding NavigateCommand}" CommandParameter="Listagem" />
+        </StackLayout>
+    </Frame>
+</ContentPage>

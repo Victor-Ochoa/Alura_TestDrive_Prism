@@ -2,9 +2,9 @@
 
 namespace TestDrive.Views
 {
-    public partial class Master : TabbedPage
+    public partial class TabUsuario : ContentPage
     {
-        public Master()
+        public TabUsuario()
         {
             InitializeComponent();
         }
