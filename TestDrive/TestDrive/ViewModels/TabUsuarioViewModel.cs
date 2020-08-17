@@ -2,6 +2,7 @@
 using Prism.Common;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,56 +15,47 @@ namespace TestDrive.ViewModels
 {
     public class TabUsuarioViewModel : ViewModelBase
     {
-        private Usuario _usuario = new Usuario();
+        private Usuario usuario = new Usuario();
+        private readonly IMemoryService _memoryService;
 
         public string Nome
         {
-            get { return _usuario.Nome; }
+            get { return Usuario.Nome; }
         }
         public string Email
         {
-            get { return _usuario.Email; }
+            get { return Usuario.Email; }
+        }
+        public Usuario Usuario 
+        { 
+            get => usuario; 
+            set => SetProperty(ref usuario,value); 
         }
 
         public TabUsuarioViewModel(INavigationService navigationService, IMemoryService memoryService)
             : base(navigationService)
         {
+            _memoryService = memoryService;
+            Usuario = _memoryService.Usuario;
+
+
             NavigateCommand = new DelegateCommand<string>(NavigateCommandAction);
-            _usuario = memoryService.Usuario;
             SelectFirstTabCommand = new Command(SelectFirstTabCommandAction);
-
         }
-
         public DelegateCommand<string> NavigateCommand { get; }
         public ICommand SelectFirstTabCommand { get; }
 
         private async void NavigateCommandAction(string view)
         {
-            await _navigationService.NavigateAsync($"/MasterDetail/NavigationPage/{view}");
+            await _navigationService.NavigateAsync($"/MasterDetail/NavigationPage/{view}", useModalNavigation: false);
         }
 
-        private void SelectFirstTabCommandAction()
+        private async void SelectFirstTabCommandAction()
         {
-            var currentPage = ((IPageAware)_navigationService).Page;
+            var nav = await _navigationService.SelectTabAsync("TabEditar");
 
-            TabbedPage tabbedPage = null;
-            if (currentPage is TabbedPage current)
-            {
-                tabbedPage = current;
-            }
-            else if (currentPage.Parent is TabbedPage parent)
-            {
-                tabbedPage = parent;
-            }
-            else if (currentPage.Parent is NavigationPage navPage)
-            {
-                if (navPage.Parent != null && navPage.Parent is TabbedPage parent2)
-                {
-                    tabbedPage = parent2;
-                }
-            }
-
-            tabbedPage.CurrentPage = tabbedPage.Children[1];
+            if (!nav.Success)
+                System.Diagnostics.Debug.WriteLine(nav.Exception);
         }
     }
 }

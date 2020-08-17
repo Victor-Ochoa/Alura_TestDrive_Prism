@@ -5,7 +5,23 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="TestDrive.Views.TabEditar"
              Title="Editar">
-    <StackLayout>
-        <Label Text="editar usuário"></Label>
-    </StackLayout>
+    <Frame OutlineColor="Silver" Margin="15" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <TableView>
+                <TableRoot>
+                    <TableSection Title="Dados Pessoais" >
+                        <EntryCell Placeholder="Nome" Text="{Binding Nome}"></EntryCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Margin="20,0,0,0">
+                                <Label Text="Data de Nascimento:" VerticalOptions="Center" FontSize="16"></Label>
+                                <DatePicker Format="dd/MM/yyyy" ></DatePicker>
+                            </StackLayout>
+                        </ViewCell>
+                        <EntryCell Placeholder="Telefone" Keyboard="Telephone"></EntryCell>
+                        <EntryCell Placeholder="E-mail" Keyboard="Email"></EntryCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+        </StackLayout>
+    </Frame>
 </ContentPage>
