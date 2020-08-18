@@ -4,8 +4,10 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using TestDrive.Interfaces;
 using TestDrive.Models;
+using Xamarin.Forms;
 
 namespace TestDrive.ViewModels
 {
@@ -18,12 +20,16 @@ namespace TestDrive.ViewModels
             : base(navigationService)
         {
             this._memoryService = memoryService;
-            _usuario = _memoryService.Usuario;
-        }
+            _usuario = new Usuario(_memoryService.Usuario);
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            RaisePropertyChanged(nameof(Nome));
+            EditarCommand = new DelegateCommand(() => { IsEditable = true; });
+            SalvarCommand = new DelegateCommand(() => {
+                _memoryService.Usuario.Nome = _usuario.Nome; 
+                _memoryService.Usuario.DataNascimento = _usuario.DataNascimento; 
+                _memoryService.Usuario.Email = _usuario.Email; 
+                _memoryService.Usuario.Telefone = _usuario.Telefone;
+                IsEditable = false; 
+            });
         }
 
         public string Nome
@@ -32,9 +38,45 @@ namespace TestDrive.ViewModels
             set {
                 _usuario.Nome = value;
                 RaisePropertyChanged();
-                _memoryService.Usuario = _usuario;
             }
         }
 
+        public DateTime DataNascimento
+        {
+            get { return _usuario.DataNascimento; }
+            set {
+                _usuario.DataNascimento = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Email
+        {
+            get { return _usuario.Email; }
+            set {
+                _usuario.Email = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Telefone
+        {
+            get { return _usuario.Telefone; }
+            set {
+                _usuario.Telefone = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _isEditable = false;
+
+        public bool IsEditable
+        {
+            get { return _isEditable; }
+            set { SetProperty(ref _isEditable, value); }
+        }
+
+        public ICommand EditarCommand { get; }
+        public ICommand SalvarCommand { get; }
     }
 }

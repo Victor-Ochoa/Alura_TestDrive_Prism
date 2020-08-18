@@ -13,6 +13,16 @@ namespace TestDrive.Models
         private string telefone = "";
         private string email = "";
 
+        public Usuario() { }
+        public Usuario(Usuario usuario)
+        {
+            Id = usuario.Id;
+            Nome = usuario.Nome;
+            DataNascimento = usuario.DataNascimento;
+            Telefone = usuario.Telefone;
+            Email = usuario.Email;
+        }
+
         public int Id { get => id; set => SetProperty(ref id, value); }
         public string Nome { get => nome; set => SetProperty(ref nome, value); }
         public DateTime DataNascimento { get => dataNascimento; set => SetProperty(ref dataNascimento, value); }
