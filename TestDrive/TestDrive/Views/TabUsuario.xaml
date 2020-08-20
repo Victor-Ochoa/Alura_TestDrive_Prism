@@ -8,6 +8,7 @@
 
     <Frame OutlineColor="Silver" Margin="15" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
         <StackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="Center">
+            <Image Source="perfil.png" HeightRequest="100"></Image>
             <Label Text="{Binding Usuario.Nome}"></Label>
             <BoxView HeightRequest="1" HorizontalOptions="Fill" Color="Gray"></BoxView>
             <Label Text="{Binding Usuario.Email}"></Label>
