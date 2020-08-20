@@ -1,33 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TestDrive.Views.Listagem"
-             Title="{Binding Title}"
-             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms">
+<ContentPage
+    x:Class="TestDrive.Views.Listagem"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    Title="{Binding Title}"
+    prism:ViewModelLocator.AutowireViewModel="True">
 
     <StackLayout Margin="25">
-        <ActivityIndicator IsRunning="{Binding Aguarde}"
-                           IsVisible="{Binding Aguarde}">
-        </ActivityIndicator>
-        <ListView x:Name="listViewVeiculos" ItemsSource="{Binding Veiculos}" >
+        <ActivityIndicator IsRunning="{Binding Aguarde}" IsVisible="{Binding Aguarde}" />
+        <ListView x:Name="listViewVeiculos" ItemsSource="{Binding Veiculos}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Nome}" FontSize="20" VerticalTextAlignment="Center"></Label>
-                                <Label Text=" - " VerticalTextAlignment="Center"></Label>
-                                <Label Text="{Binding Preco,StringFormat='{0:C}'}" FontAttributes="Bold" VerticalTextAlignment="Center"></Label>
+                                <Label
+                                    FontSize="20"
+                                    Text="{Binding Nome}"
+                                    VerticalTextAlignment="Center" />
+                                <Label Text=" - " VerticalTextAlignment="Center" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="{Binding Preco, StringFormat='{0:C}'}"
+                                    VerticalTextAlignment="Center" />
                             </StackLayout>
                         </ViewCell.View>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.Behaviors>
-                <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding VeiculoTappedCommand}" EventArgsParameterPath="Item">
-                </b:EventToCommandBehavior>
+                <b:EventToCommandBehavior
+                    Command="{Binding VeiculoTappedCommand}"
+                    EventArgsParameterPath="Item"
+                    EventName="ItemTapped" />
             </ListView.Behaviors>
         </ListView>
     </StackLayout>

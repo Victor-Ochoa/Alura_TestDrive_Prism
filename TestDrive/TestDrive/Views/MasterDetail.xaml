@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:prism="http://prismlibrary.com"
-                  prism:ViewModelLocator.AutowireViewModel="True"
-                  x:Class="TestDrive.Views.MasterDetail"
-                  xmlns:local="clr-namespace:TestDrive.Views">
+<MasterDetailPage
+    x:Class="TestDrive.Views.MasterDetail"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TestDrive.Views"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
 
     <MasterDetailPage.Master>
-        <local:Master></local:Master>
+        <local:Master />
     </MasterDetailPage.Master>
-    
+
 </MasterDetailPage>

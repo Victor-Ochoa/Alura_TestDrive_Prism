@@ -1,36 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TestDrive.Views.Agendamento"
-             Title="{Binding Title}">
+<ContentPage
+    x:Class="TestDrive.Views.Agendamento"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    Title="{Binding Title}"
+    prism:ViewModelLocator.AutowireViewModel="True">
 
     <StackLayout>
         <TableView>
             <TableRoot>
                 <TableSection Title="Seus Dados">
-                    <EntryCell Label="Nome:" Text="{Binding Nome}"></EntryCell>
-                    <EntryCell Label="Fone:" Keyboard="Telephone" Text="{Binding Fone}"></EntryCell>
-                    <EntryCell Label="E-mail:" Keyboard="Email" Text="{Binding Email}"></EntryCell>
+                    <EntryCell Label="Nome:" Text="{Binding Nome}" />
+                    <EntryCell
+                        Keyboard="Telephone"
+                        Label="Fone:"
+                        Text="{Binding Fone}" />
+                    <EntryCell
+                        Keyboard="Email"
+                        Label="E-mail:"
+                        Text="{Binding Email}" />
                 </TableSection>
                 <TableSection Title="Agendamento">
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" Margin="12,0,0,0">
-                            <Label Text="Data:"></Label>
-                            <DatePicker Date="{Binding DataAgendamento}"></DatePicker>
+                        <StackLayout Margin="12,0,0,0" Orientation="Horizontal">
+                            <Label Text="Data:" />
+                            <DatePicker Date="{Binding DataAgendamento}" />
                         </StackLayout>
                     </ViewCell>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" Margin="12,0,0,0">
-                            <Label Text="Hora:"></Label>
-                            <TimePicker Time="{Binding HoraAgendamento}"></TimePicker>
+                        <StackLayout Margin="12,0,0,0" Orientation="Horizontal">
+                            <Label Text="Hora:" />
+                            <TimePicker Time="{Binding HoraAgendamento}" />
                         </StackLayout>
                     </ViewCell>
                 </TableSection>
             </TableRoot>
         </TableView>
-        <Button Text="Agendar" Command="{Binding AgendarCommand}"></Button>
+        <Button Command="{Binding AgendarCommand}" Text="Agendar" />
     </StackLayout>
-    
+
 </ContentPage>

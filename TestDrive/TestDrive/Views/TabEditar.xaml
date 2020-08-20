@@ -1,38 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TestDrive.Views.TabEditar"
-             Title="Editar"
-             xmlns:conv="clr-namespace:TestDrive.Converter">
-    
+<ContentPage
+    x:Class="TestDrive.Views.TabEditar"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:conv="clr-namespace:TestDrive.Converter"
+    xmlns:prism="http://prismlibrary.com"
+    Title="Editar"
+    prism:ViewModelLocator.AutowireViewModel="True">
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:NegateBoolean x:Key="inverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Frame OutlineColor="Silver" Margin="15" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Image Source="perfil.png" HeightRequest="100"></Image>
+    <Frame
+        Margin="15"
+        HorizontalOptions="CenterAndExpand"
+        OutlineColor="Silver"
+        VerticalOptions="CenterAndExpand">
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Image HeightRequest="100" Source="perfil.png" />
             <TableView>
                 <TableRoot>
-                    <TableSection Title="Dados Pessoais" >
-                        <EntryCell Placeholder="Nome" Text="{Binding Nome}" IsEnabled="{Binding IsEditable}"></EntryCell>
+                    <TableSection Title="Dados Pessoais">
+                        <EntryCell
+                            IsEnabled="{Binding IsEditable}"
+                            Placeholder="Nome"
+                            Text="{Binding Nome}" />
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" Margin="20,0,0,0">
-                                <Label Text="Data de Nascimento:" VerticalOptions="Center" FontSize="16"></Label>
-                                <DatePicker Format="dd/MM/yyyy" Date="{Binding DataNascimento}" IsEnabled="{Binding IsEditable}"></DatePicker>
+                            <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                                <Label
+                                    FontSize="16"
+                                    Text="Data de Nascimento:"
+                                    VerticalOptions="Center" />
+                                <DatePicker
+                                    Date="{Binding DataNascimento}"
+                                    Format="dd/MM/yyyy"
+                                    IsEnabled="{Binding IsEditable}" />
                             </StackLayout>
                         </ViewCell>
-                        <EntryCell Placeholder="Telefone" Keyboard="Telephone" Text="{Binding Telefone}" IsEnabled="{Binding IsEditable}"></EntryCell>
-                        <EntryCell Placeholder="E-mail" Keyboard="Email" Text="{Binding Email}" IsEnabled="{Binding IsEditable}"></EntryCell>
+                        <EntryCell
+                            IsEnabled="{Binding IsEditable}"
+                            Keyboard="Telephone"
+                            Placeholder="Telefone"
+                            Text="{Binding Telefone}" />
+                        <EntryCell
+                            IsEnabled="{Binding IsEditable}"
+                            Keyboard="Email"
+                            Placeholder="E-mail"
+                            Text="{Binding Email}" />
                     </TableSection>
                 </TableRoot>
             </TableView>
-            <Button Text="Editar" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsEditable, Converter={StaticResource inverter}}" Command="{Binding EditarCommand}"></Button>
-            <Button Text="Salvar" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsEditable}" Command="{Binding SalvarCommand}"></Button>
+            <Button
+                Command="{Binding EditarCommand}"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsEditable, Converter={StaticResource inverter}}"
+                Text="Editar"
+                VerticalOptions="EndAndExpand" />
+            <Button
+                Command="{Binding SalvarCommand}"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsEditable}"
+                Text="Salvar"
+                VerticalOptions="EndAndExpand" />
         </StackLayout>
     </Frame>
 </ContentPage>

@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TestDrive.Views.Detalhe"
-             Title="{Binding Title}">
+<ContentPage
+    x:Class="TestDrive.Views.Detalhe"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    Title="{Binding Title}"
+    prism:ViewModelLocator.AutowireViewModel="True">
 
     <StackLayout Padding="25">
         <TableView Intent="Settings">
             <TableRoot>
                 <TableSection Title="Acessórios">
-                    <SwitchCell Text="{Binding TextoFreioABS}" 
-                                On="{Binding TemFreioABS, Mode=TwoWay}"></SwitchCell>
-                    <SwitchCell Text="{Binding TextoArCondicionado, Mode=TwoWay}" 
-                                On="{Binding TemArCondicionado, Mode=TwoWay}"></SwitchCell>
-                    <SwitchCell Text="{Binding TextoMP3Player, Mode=TwoWay}" 
-                                On="{Binding TemMP3Player, Mode=TwoWay}"></SwitchCell>
-                    <TextCell Text="{Binding ValorTotal, StringFormat='Valor Total: {0:C}', Mode=TwoWay}"></TextCell>
+                    <SwitchCell On="{Binding TemFreioABS, Mode=TwoWay}" Text="{Binding TextoFreioABS}" />
+                    <SwitchCell On="{Binding TemArCondicionado, Mode=TwoWay}" Text="{Binding TextoArCondicionado, Mode=TwoWay}" />
+                    <SwitchCell On="{Binding TemMP3Player, Mode=TwoWay}" Text="{Binding TextoMP3Player, Mode=TwoWay}" />
+                    <TextCell Text="{Binding ValorTotal, StringFormat='Valor Total: {0:C}', Mode=TwoWay}" />
                 </TableSection>
             </TableRoot>
         </TableView>
 
-        <Button x:Name="buttonProximo" Text="Próximo" 
-        Command="{Binding ProximoCommand}"
-        VerticalOptions="End"></Button>
+        <Button
+            x:Name="buttonProximo"
+            Command="{Binding ProximoCommand}"
+            Text="Próximo"
+            VerticalOptions="End" />
     </StackLayout>
 
 </ContentPage>

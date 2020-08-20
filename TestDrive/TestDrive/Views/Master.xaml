@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             Title="Menu"
-             x:Class="TestDrive.Views.Master"
-             xmlns:local="clr-namespace:TestDrive.Views">
+<TabbedPage
+    x:Class="TestDrive.Views.Master"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TestDrive.Views"
+    xmlns:prism="http://prismlibrary.com"
+    Title="Menu"
+    prism:ViewModelLocator.AutowireViewModel="True">
     <TabbedPage.Children>
-        <local:TabUsuario></local:TabUsuario>
-        <local:TabEditar></local:TabEditar>
+        <local:TabUsuario />
+        <local:TabEditar />
     </TabbedPage.Children>
 </TabbedPage>
