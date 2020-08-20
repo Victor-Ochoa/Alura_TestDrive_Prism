@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace TestDrive.Models
 {
@@ -12,6 +13,7 @@ namespace TestDrive.Models
         private DateTime dataNascimento = DateTime.Now;
         private string telefone = "";
         private string email = "";
+        private ImageSource fotoPerfil = "perfil.png";
 
         public Usuario() { }
         public Usuario(Usuario usuario)
@@ -23,6 +25,11 @@ namespace TestDrive.Models
             Email = usuario.Email;
         }
 
+        public ImageSource FotoPerfil
+        {
+            get { return fotoPerfil; }
+            set { SetProperty(ref fotoPerfil, value); }
+        }
         public int Id { get => id; set => SetProperty(ref id, value); }
         public string Nome { get => nome; set => SetProperty(ref nome, value); }
         public DateTime DataNascimento { get => dataNascimento; set => SetProperty(ref dataNascimento, value); }

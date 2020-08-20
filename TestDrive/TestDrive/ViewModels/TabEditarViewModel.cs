@@ -28,8 +28,18 @@ namespace TestDrive.ViewModels
                 _memoryService.Usuario.DataNascimento = _usuario.DataNascimento; 
                 _memoryService.Usuario.Email = _usuario.Email; 
                 _memoryService.Usuario.Telefone = _usuario.Telefone;
+                _memoryService.Usuario.FotoPerfil = _usuario.FotoPerfil;
                 IsEditable = false; 
             });
+        }
+
+        private DelegateCommand _imageTapCommand;
+        public DelegateCommand ImageTapCommand =>
+            _imageTapCommand ?? (_imageTapCommand = new DelegateCommand(ImageTapComandAction));
+
+        void ImageTapComandAction()
+        {
+
         }
 
         public string Nome
@@ -64,6 +74,15 @@ namespace TestDrive.ViewModels
             get { return _usuario.Telefone; }
             set {
                 _usuario.Telefone = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ImageSource FotoPerfil
+        {
+            get { return _usuario.FotoPerfil; }
+            set {
+                _usuario.FotoPerfil = value;
                 RaisePropertyChanged();
             }
         }

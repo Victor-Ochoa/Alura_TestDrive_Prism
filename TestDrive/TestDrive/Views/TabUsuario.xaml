@@ -16,7 +16,7 @@
             Padding="20"
             HorizontalOptions="Center"
             VerticalOptions="Center">
-            <Image HeightRequest="100" Source="perfil.png" />
+            <Image HeightRequest="100" Source="{Binding Usuario.FotoPerfil}" />
             <Label Text="{Binding Usuario.Nome}" />
             <BoxView
                 HeightRequest="1"

@@ -20,7 +20,11 @@
         OutlineColor="Silver"
         VerticalOptions="CenterAndExpand">
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Image HeightRequest="100" Source="perfil.png" />
+            <Image HeightRequest="100" Source="{Binding FotoPerfil}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ImageTapCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
             <TableView>
                 <TableRoot>
                     <TableSection Title="Dados Pessoais">
