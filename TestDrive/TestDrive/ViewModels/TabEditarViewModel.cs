@@ -1,6 +1,8 @@
-﻿using Prism.Commands;
+﻿using Plugin.Media;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +16,14 @@ namespace TestDrive.ViewModels
     public class TabEditarViewModel : ViewModelBase
     {
         private readonly IMemoryService _memoryService;
+        private readonly IPageDialogService _pageDialogService;
         private Usuario _usuario = new Usuario();
 
-        public TabEditarViewModel(INavigationService navigationService, IMemoryService memoryService)
+        public TabEditarViewModel(INavigationService navigationService, IMemoryService memoryService, IPageDialogService pageDialogService)
             : base(navigationService)
         {
             this._memoryService = memoryService;
+            this._pageDialogService = pageDialogService;
             _usuario = new Usuario(_memoryService.Usuario);
 
             EditarCommand = new DelegateCommand(() => { IsEditable = true; });
@@ -37,9 +41,30 @@ namespace TestDrive.ViewModels
         public DelegateCommand ImageTapCommand =>
             _imageTapCommand ?? (_imageTapCommand = new DelegateCommand(ImageTapComandAction));
 
-        void ImageTapComandAction()
+        async void ImageTapComandAction()
         {
+            if (!IsEditable)
+                return;
 
+            await CrossMedia.Current.Initialize();
+
+            if(!CrossMedia.Current.IsTakePhotoSupported || !CrossMedia.Current.IsCameraAvailable)
+            {
+                await _pageDialogService.DisplayAlertAsync("Ops", "Nenhuma câmera detectada.", "ok");
+                return;
+            }
+
+            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            {
+                SaveToAlbum  = true,
+                Directory = "TestDrive",
+                DefaultCamera = Plugin.Media.Abstractions.CameraDevice.Front
+            });
+
+            if (file == null)
+                return;
+
+            FotoPerfil = ImageSource.FromFile(file.Path);
         }
 
         public string Nome
