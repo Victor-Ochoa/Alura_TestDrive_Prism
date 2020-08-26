@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
+using TestDrive.Core;
 using TestDrive.Interfaces;
 using TestDrive.Models;
 using Xamarin.Forms;

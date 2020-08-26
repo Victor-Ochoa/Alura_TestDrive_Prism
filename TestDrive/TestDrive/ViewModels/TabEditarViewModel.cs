@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using TestDrive.Interfaces;
+using TestDrive.Core;
 using TestDrive.Models;
 using Xamarin.Forms;
 
