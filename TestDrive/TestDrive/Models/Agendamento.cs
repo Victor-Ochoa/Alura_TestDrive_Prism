@@ -1,9 +1,11 @@
 ﻿using System;
+using TestDrive.Core;
 
 namespace TestDrive.Models
 {
-    public class Agendamento
+    public class Agendamento : EntityBase
     {
+        [LiteDB.BsonRef]
         public Veiculo Veiculo { get; set; }
         public string Nome { get; set; }
         public string Fone { get; set; }

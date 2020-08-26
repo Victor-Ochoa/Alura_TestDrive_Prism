@@ -1,6 +1,8 @@
-﻿namespace TestDrive.Models
+﻿using TestDrive.Core;
+
+namespace TestDrive.Models
 {
-    public class Veiculo
+    public class Veiculo : EntityBase
     {
         public const decimal FREIO_ABS = 800;
         public const decimal AR_CONDICIONADO = 1000;
