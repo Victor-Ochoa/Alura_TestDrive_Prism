@@ -11,6 +11,8 @@ namespace TestDrive.Models
         public string Fone { get; set; }
         public string Email { get; set; }
 
+        public bool Enviado { get; set; }
+
         DateTime dataAgendamento = DateTime.Today;
         public DateTime DataAgendamento
         {

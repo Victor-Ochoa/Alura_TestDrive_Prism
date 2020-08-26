@@ -30,7 +30,7 @@
             <Button Command="{Binding SelectFirstTabCommand}" Text="Perfil" />
             <Button
                 Command="{Binding NavigateCommand}"
-                CommandParameter="Listagem"
+                CommandParameter="MeusAgendamentos"
                 Text="Meus Agendamentos" />
             <Button
                 Command="{Binding NavigateCommand}"

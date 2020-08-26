@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using LiteDB;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -11,8 +12,12 @@ namespace TestDrive.Services
     public class AgendamentoService : IAgendamentoService
     {
         const string URL_POST_AGENDAMENTO = "https://aluracar.herokuapp.com/salvaragendamento";
+        private readonly ILiteDatabase _liteDatabase;
 
-        public AgendamentoService() { }
+        public AgendamentoService(ILiteDatabase liteDatabase)
+        {
+            this._liteDatabase = liteDatabase;
+        }
 
         public async Task<bool> Salvar(Agendamento agendamento)
         {
@@ -35,6 +40,12 @@ namespace TestDrive.Services
             var conteudo = new StringContent(json, Encoding.UTF8, "application/json");
 
             var resposta = await cliente.PostAsync(URL_POST_AGENDAMENTO, conteudo);
+
+            agendamento.Enviado = resposta.IsSuccessStatusCode;
+
+            var agendamentoDb = _liteDatabase.GetCollection<Agendamento>();
+            agendamentoDb.Upsert(agendamento);
+
             return resposta.IsSuccessStatusCode;
         }
     }
