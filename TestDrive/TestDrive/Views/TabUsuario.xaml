@@ -3,9 +3,16 @@
     x:Class="TestDrive.Views.TabUsuario"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:conv="clr-namespace:TestDrive.Converter"
     xmlns:prism="http://prismlibrary.com"
     Title="Usuário"
     prism:ViewModelLocator.AutowireViewModel="True">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:UserImageFromByteArray x:Key="Image" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Frame
         Margin="15"
@@ -16,7 +23,7 @@
             Padding="20"
             HorizontalOptions="Center"
             VerticalOptions="Center">
-            <Image HeightRequest="100" Source="{Binding Usuario.FotoPerfil}" />
+            <Image HeightRequest="100" Source="{Binding Usuario.FotoPerfil, Converter={StaticResource Image}}" />
             <Label Text="{Binding Usuario.Nome}" />
             <BoxView
                 HeightRequest="1"

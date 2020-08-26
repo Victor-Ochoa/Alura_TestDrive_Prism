@@ -11,6 +11,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:NegateBoolean x:Key="inverter" />
+            <conv:UserImageFromByteArray x:Key="Image" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -20,7 +21,7 @@
         OutlineColor="Silver"
         VerticalOptions="CenterAndExpand">
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Image HeightRequest="100" Source="{Binding FotoPerfil}">
+            <Image HeightRequest="100" Source="{Binding FotoPerfil, Converter={StaticResource Image}}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ImageTapCommand}" />
                 </Image.GestureRecognizers>

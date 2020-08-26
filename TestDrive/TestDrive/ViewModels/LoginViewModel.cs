@@ -1,8 +1,11 @@
-﻿using Prism.Navigation;
+﻿using LiteDB;
+using Prism.Navigation;
 using Prism.Services;
 using System;
+using System.Linq;
 using TestDrive.Core;
 using TestDrive.Interfaces;
+using TestDrive.Models;
 using Xamarin.Forms;
 
 namespace TestDrive.ViewModels
@@ -12,6 +15,7 @@ namespace TestDrive.ViewModels
         private readonly ILoginService _loginService;
         private readonly IPageDialogService _dialogService;
         private readonly IMemoryService _memoryService;
+        private readonly ILiteDatabase _liteDatabase;
         private bool _busy;
         public bool Busy
         {
@@ -44,13 +48,30 @@ namespace TestDrive.ViewModels
 
 
         public System.Windows.Input.ICommand EntrarCommand { get; set; }
-        public LoginViewModel(INavigationService navigationService, ILoginService loginService, IPageDialogService dialogService, IMemoryService memoryService)
+        public LoginViewModel(INavigationService navigationService, ILoginService loginService, IPageDialogService dialogService, IMemoryService memoryService, ILiteDatabase liteDatabase)
             : base(navigationService)
         {
             EntrarCommand = new Xamarin.Forms.Command(EntrarCommandAction, EntrarCommandValidate);
             this._loginService = loginService;
             this._dialogService = dialogService;
             this._memoryService = memoryService;
+            this._liteDatabase = liteDatabase;
+        }
+
+        public override async void OnAppearing()
+        {
+            var usuarioDb =_liteDatabase.GetCollection<Usuario>();
+
+            if(usuarioDb.Count() != 0)
+            {
+                var usuario = usuarioDb.FindAll().FirstOrDefault();
+
+                if (usuario == null)
+                    return;
+
+                _memoryService.Usuario = usuario;
+                await _navigationService.NavigateAsync("/MasterDetail/NavigationPage/Listagem");
+            }
         }
 
         private async void EntrarCommandAction()
@@ -62,6 +83,7 @@ namespace TestDrive.ViewModels
                 if (usuario != null)
                 {
                     _memoryService.Usuario = usuario;
+                    _liteDatabase.GetCollection<Usuario>().Upsert(usuario);
                     await _navigationService.NavigateAsync("/MasterDetail/NavigationPage/Listagem");
                 }
                 else

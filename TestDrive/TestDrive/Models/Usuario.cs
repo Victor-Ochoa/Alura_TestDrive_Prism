@@ -11,7 +11,7 @@ namespace TestDrive.Models
         private DateTime dataNascimento = DateTime.Now;
         private string telefone = "";
         private string email = "";
-        private ImageSource fotoPerfil = "perfil.png";
+        private byte[] fotoPerfil = new byte[] { };
 
         public Usuario() { }
         public Usuario(Usuario usuario)
@@ -21,15 +21,10 @@ namespace TestDrive.Models
             DataNascimento = usuario.DataNascimento;
             Telefone = usuario.Telefone;
             Email = usuario.Email;
+            FotoPerfil = usuario.FotoPerfil;
         }
 
-        [LiteDB.BsonIgnore]
-        public ImageSource FotoPerfil
-        {
-            get { return fotoPerfil; }
-            set { SetProperty(ref fotoPerfil, value); }
-        }
-
+        public byte[] FotoPerfil { get { return fotoPerfil; } set => SetProperty(ref fotoPerfil, value); }
         public string Nome { get => nome; set => SetProperty(ref nome, value); }
         public DateTime DataNascimento { get => dataNascimento; set => SetProperty(ref dataNascimento, value); }
         public string Telefone { get => telefone; set => SetProperty(ref telefone, value); }
