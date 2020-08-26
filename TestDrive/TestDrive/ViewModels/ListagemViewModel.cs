@@ -1,6 +1,8 @@
-﻿using Prism.Navigation;
+﻿using LiteDB;
+using Prism.Navigation;
 using Prism.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -15,6 +17,7 @@ namespace TestDrive.ViewModels
     {
         private readonly IVeiculoService _veiculoService;
         private readonly IPageDialogService _dialogService;
+        private readonly ILiteDatabase _liteDatabase;
 
         public ObservableCollection<Veiculo> Veiculos { get; set; }
 
@@ -28,7 +31,7 @@ namespace TestDrive.ViewModels
 
         public ICommand VeiculoTappedCommand { get; set; }
 
-        public ListagemViewModel(INavigationService navigationService, IVeiculoService veiculoService, IPageDialogService dialogService)
+        public ListagemViewModel(INavigationService navigationService, IVeiculoService veiculoService, IPageDialogService dialogService, ILiteDatabase liteDatabase)
             : base(navigationService)
         {
             Title = "Listagem";
@@ -45,6 +48,7 @@ namespace TestDrive.ViewModels
                 });
             this._veiculoService = veiculoService;
             this._dialogService = dialogService;
+            this._liteDatabase = liteDatabase;
         }
 
         public async override void OnAppearing()
@@ -54,25 +58,41 @@ namespace TestDrive.ViewModels
 
         public async Task GetVeiculos()
         {
+
             if (Veiculos.Count != 0)
                 return;
             try
             {
                 Aguarde = true;
 
-                var list = await _veiculoService.GetAll();
+                var veiculoDb = _liteDatabase.GetCollection<Veiculo>();
+
+                IEnumerable<Veiculo> list;
+
+                if(veiculoDb.Count() == 0)
+                {
+                    list = await _veiculoService.GetAll();
+                    veiculoDb.Upsert(list);
+                }
+                else
+                {
+                    list = veiculoDb.FindAll();
+                }
+
 
                 foreach (var item in list)
                 {
                     Veiculos.Add(item);
                 }
 
-                Aguarde = false;
-
             }
             catch (Exception exc)
             {
                 await _dialogService.DisplayAlertAsync("Listagem de Veiculos", "Falha ao buscar os veiculos, tente novamente mais tarde!", "ok");
+            }
+            finally
+            {
+                Aguarde = false;
             }
         }
     }

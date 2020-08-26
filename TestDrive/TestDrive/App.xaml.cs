@@ -8,6 +8,9 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TestDrive.Interfaces;
 using TestDrive.Services;
+using LiteDB;
+using System.IO;
+using Xamarin.Essentials;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TestDrive
@@ -47,6 +50,7 @@ namespace TestDrive
             containerRegistry.Register<IAgendamentoService, AgendamentoService>();
             containerRegistry.Register<IVeiculoService, VeiculoService>();
             containerRegistry.Register<ILoginService, LoginService>();
+            containerRegistry.RegisterInstance<ILiteDatabase>(new LiteDatabase(Path.Combine(FileSystem.AppDataDirectory, "TestDriveDb.db")));
 
             containerRegistry.RegisterSingleton<IMemoryService, MemoryService>();
         }
