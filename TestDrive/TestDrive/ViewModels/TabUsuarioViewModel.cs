@@ -1,11 +1,6 @@
 ﻿using Prism.Commands;
-using Prism.Common;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Navigation.TabbedPages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
 using TestDrive.Core;
 using TestDrive.Interfaces;

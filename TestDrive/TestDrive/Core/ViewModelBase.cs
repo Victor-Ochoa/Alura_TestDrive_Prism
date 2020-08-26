@@ -1,11 +1,8 @@
 ﻿using Prism;
 using Prism.AppModel;
-using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TestDrive.Core
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TestDrive.Interfaces;
+﻿using TestDrive.Interfaces;
 using TestDrive.Models;
 
 namespace TestDrive.Services

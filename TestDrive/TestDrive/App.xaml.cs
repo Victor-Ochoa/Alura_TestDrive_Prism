@@ -6,10 +6,8 @@ using Xamarin.Essentials.Interfaces;
 using Xamarin.Essentials.Implementation;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using TestDrive.Core;
 using TestDrive.Interfaces;
 using TestDrive.Services;
-using TestDrive.Models;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TestDrive

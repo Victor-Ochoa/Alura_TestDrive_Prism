@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TestDrive.Models;
+﻿using TestDrive.Models;
 
 namespace TestDrive.Interfaces
 {
