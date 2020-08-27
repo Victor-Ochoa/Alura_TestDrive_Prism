@@ -3,32 +3,41 @@
     x:Class="TestDrive.Views.MeusAgendamentos"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:TestDrive.Converter"
     xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:converters="clr-namespace:TestDrive.Converter"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:AgendamentoConfirmadoColor x:Key="confirmado" />
+            <converters:NegateBoolean x:Key="inverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
 
-        <CollectionView ItemsSource="{Binding MeusAgendamentos}" SelectionMode="Single" SelectionChangedCommand="{Binding AgendamentoTappedCommand}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Margin="15,0" Padding="5">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding DataAgendamento, StringFormat='{0:dd/MM/yyyy}'}" TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
-                            <Label Text="{Binding HoraAgendamento, StringFormat=' {0:hh\\:mm}'}" TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
-                            <Label Text=" - " TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
-                            <Label Text="{Binding Veiculo.Nome}" TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <StackLayout>
+            <ActivityIndicator IsRunning="{Binding Aguarde}" IsVisible="{Binding Aguarde}" />
+            <CollectionView
+                IsEnabled="{Binding Aguarde, Converter={StaticResource inverter}}"
+                ItemsSource="{Binding MeusAgendamentos}"
+                SelectedItem="{Binding SelectAgendamento}"
+                SelectionChangedCommand="{Binding AgendamentoTappedCommand}"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="15,0" Padding="5">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding DataAgendamento, StringFormat='{0:dd/MM/yyyy}'}" TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
+                                <Label Text="{Binding HoraAgendamento, StringFormat=' {0:hh\\:mm}'}" TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
+                                <Label Text=" - " TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
+                                <Label Text="{Binding Veiculo.Nome}" TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
 
     </ContentPage.Content>
 </ContentPage>
