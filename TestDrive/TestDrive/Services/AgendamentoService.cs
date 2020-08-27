@@ -36,17 +36,26 @@ namespace TestDrive.Services
                 preco = agendamento.Veiculo.Preco,
                 dataAgendamento = dataHoraAgendamento
             });
-
-            var conteudo = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var resposta = await cliente.PostAsync(URL_POST_AGENDAMENTO, conteudo);
-
-            agendamento.Enviado = resposta.IsSuccessStatusCode;
-
             var agendamentoDb = _liteDatabase.GetCollection<Agendamento>();
-            agendamentoDb.Upsert(agendamento);
+            try
+            {
+                var conteudo = new StringContent(json, Encoding.UTF8, "application/json");
 
-            return resposta.IsSuccessStatusCode;
+                var resposta = await cliente.PostAsync(URL_POST_AGENDAMENTO, conteudo);
+
+                agendamento.Enviado = resposta.IsSuccessStatusCode;
+
+                agendamentoDb.Upsert(agendamento);
+
+                return resposta.IsSuccessStatusCode;
+
+            }
+            catch
+            {
+
+                agendamentoDb.Upsert(agendamento);
+                return false;                                   
+            }
         }
     }
 }

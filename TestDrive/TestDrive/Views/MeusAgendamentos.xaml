@@ -1,8 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TestDrive.Views.MeusAgendamentos">
-  
+<ContentPage
+    x:Class="TestDrive.Views.MeusAgendamentos"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:TestDrive.Converter"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AgendamentoConfirmadoColor x:Key="confirmado" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <CollectionView ItemsSource="{Binding MeusAgendamentos}" SelectionMode="Single" SelectionChangedCommand="{Binding AgendamentoTappedCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="15,0" Padding="5">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding DataAgendamento, StringFormat='{0:dd/MM/yyyy}'}" TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
+                            <Label Text="{Binding HoraAgendamento, StringFormat=' {0:hh\\:mm}'}" TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
+                            <Label Text=" - " TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
+                            <Label Text="{Binding Veiculo.Nome}" TextColor="{Binding Enviado, Converter={StaticResource Key=confirmado}}" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </ContentPage.Content>
 </ContentPage>
